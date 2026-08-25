@@ -12,13 +12,13 @@
 
 constexpr int N_DETECTORS = 8;
 constexpr int N_EVENTS = 10000;
-constexpr float BEAM_SIGMA = 1.0f;          // cm, beam spot size in X and Y
-constexpr float BEAM_DIVERGENCE = 0.001f;   // rad, angular spread (~1 mrad)
+constexpr float BEAM_SIGMA = 2.0f;          // cm, beam spot size in X and Y
+constexpr float BEAM_DIVERGENCE = 0.01f;    // rad, angular spread (~10 mrad)
 constexpr float BEAM_CENTER_X = 0.0f;       // cm
 constexpr float BEAM_CENTER_Y = 0.0f;       // cm
 constexpr float DETECTOR_WIDTH = 20.0f;     // cm, full width (+-10 cm)
 constexpr float LAYER_SPACING = 10.0f;      // cm, nominal z spacing
-constexpr float MEASUREMENT_NOISE = 0.003f; // cm, 30 um spatial resolution
+constexpr float MEASUREMENT_NOISE = 0.006f; // cm, 30 um spatial resolution
 constexpr int MIN_HITS = 4;
 
 // ---------------------------------------------------------------------

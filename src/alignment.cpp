@@ -44,12 +44,20 @@ void loadGeometry()
     std::cout << "--> Geometry loaded successfully." << std::endl;
 }
 
-int main()
+int main(int argc, char *argv[])
 {
+    if (argc < 2) {
+        std::cerr << "Usage: " << argv[0] << " <iteration> hits_file " << std::endl;
+        return 1;
+    }
+
+    int iteration = (argc > 1) ? std::atoi(argv[1]) : 1;
+    std::string hits_file = (argc > 2) ? argv[2] : "hits_misaligned.csv";
+
     // 1. Load the alignment corrections calculated in previous steps
     loadGeometry();
 
-    std::ifstream csvFile("hits_generated.csv");
+    std::ifstream csvFile(hits_file);
     if (!csvFile.is_open())
     {
         std::cerr << "Error: cannot open the CSV file with the measurements." << std::endl;
@@ -57,7 +65,10 @@ int main()
     }
 
     // 2. Output file for residual histograms
-    TFile outputFile("residuals.root", "RECREATE");
+
+    // Rootfiles are named as "residuals_<iteration>.root"
+    std::string output_file = "rootfiles/residuals_" + std::to_string(iteration) + ".root";
+    TFile outputFile(output_file.c_str(), "RECREATE");
     std::vector<TH1*> residuals;
     for (int i = 0; i < 8; ++i)
     {

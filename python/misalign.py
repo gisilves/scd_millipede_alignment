@@ -1,5 +1,12 @@
 import pandas as pd
 import numpy as np
+import argparse
+
+
+parser = argparse.ArgumentParser(description="Apply artificial misalignments to a hits CSV file.")
+parser.add_argument("input", help="Input hits CSV file")
+parser.add_argument("output", help="Output hits CSV file")
+args = parser.parse_args()
 
 # ==============================================================================
 # 1. CONFIGURATION OF ARTIFICIAL MISALIGNMENTS (Known values for testing)
@@ -11,21 +18,21 @@ IS_X_LAYER = [True, False, True, False, True, False, True, False]
 # Define the coupled displacements to inject (in mm or radians)
 MISALIGNMENTS = {
     # Layer: [Shift_X/Y, Rot_Z, Tilt_X, Tilt_Y]
-    0: [0.0,     0.0,     0.0,    0.0],     # Layer 1 (X)
-    1: [0.0,     0.0,     0.0,    0.0],     # Layer 2 (Y)
-    2: [0.0,     0.0,     0.0,    0.0],     # Layer 3 (X)
-    3: [0.0,     0.0,     0.0,    0.0],     # Layer 4 (Y)
-    4: [0.0,     0.0,     0.0,    0.0],     # Layer 5 (X)
-    5: [0.0,     0.0,     0.0,    0.0],     # Layer 6 (Y)
-    6: [0.0,     0.0,     0.0,    0.0],     # Layer 7 (X)
-    7: [0.0,     0.0,     0.0,    0.0],     # Layer 8 (Y)
+    0: [+0.00,     0.0,     0.0,    0.0],     # Layer 1 (X)
+    1: [+0.00,     0.0,     0.0,    0.0],     # Layer 2 (Y)
+    2: [+1.00,     0.0,     0.0,    0.0],     # Layer 3 (X)
+    3: [+0.80,     0.0,     0.0,    0.0],     # Layer 4 (Y)
+    4: [-0.50,     0.0,     0.0,    0.0],     # Layer 5 (X)
+    5: [+0.45,     0.0,     0.0,    0.0],     # Layer 6 (Y)
+    6: [+0.00,     0.0,     0.0,    0.0],     # Layer 7 (X)
+    7: [+0.00,     0.0,     0.0,    0.0],     # Layer 8 (Y)
 }
 
 # ==============================================================================
 # 2. GEOMETRIC TRANSFORMATION PROCESS
 # ==============================================================================
-file_input = "hits_perfect.csv"
-file_output = "hits_generated.csv"
+file_input = args.input 
+file_output = args.output
 
 # Load original hits
 df = pd.read_csv(file_input, header=None)

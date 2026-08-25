@@ -3,6 +3,10 @@
 # Clean up old convergence files
 rm -f .converged
 rm -f current_geometry.txt
+rm -f rootfiles/*
+rm -f millepede.*
+rm -f mille_output_run001.bin
+rm -f geometry_history.txt
 
 ITERATION=1
 MAX_ITERATION=10
@@ -18,7 +22,7 @@ do
 
     # 1. Run the local fit and generate the updated binary file
     echo "Running ./align..."
-    ./align
+    ./align $ITERATION
     
     # 2. Start Millepede II to calculate global corrections
     echo "Running pede..."
@@ -30,7 +34,7 @@ do
     fi
 
     # 3. Process the results and check the convergence threshold
-    python3 update_geometry.py
+    python3 python/update_geometry.py
 
     # Safety check to avoid infinite loops
     if [ $ITERATION -ge $MAX_ITERATION ]; then
