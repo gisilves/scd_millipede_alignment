@@ -1,0 +1,39 @@
+! Constrains for Tracker with 8 layers and X/Y rotations included
+! -------------------------------------------------------------------------------
+
+! [Constraints for X/Y shifts and Z rotations remain invariant for the first two layers]
+Constraint  0.0
+3011    1.0
+5011    1.0
+7011    1.0
+
+Constraint  0.0
+4012    1.0
+6012    1.0
+8012    1.0
+
+Constraint  0.0
+3013    1.0
+4013    1.0
+5013    1.0
+6013    1.0
+7013    1.0
+8013    1.0
+
+! This constraint prevents the average tilt around the X axis
+Constraint  0.0
+3014    1.0
+4014    1.0
+5014    1.0
+6014    1.0
+7014    1.0
+8014    1.0
+
+! This constraint prevents the average tilt around the Y axis
+Constraint  0.0
+3015    1.0
+4015    1.0
+5015    1.0
+6015    1.0
+7015    1.0
+8015    1.0

@@ -1,0 +1,69 @@
+! Master steering file definitivo per Tracker a 8 strati alternati
+! --------------------------------------------------------------------------
+
+! 1. File binari da processare
+Cfiles
+mille_output_run001.bin
+
+! 2. Ancoraggio Rigido Strato 1 e 2 (Pre-sigma negativo fissa il parametro)
+! Sintassi: Parameter [ID] [ValoreIniziale] [PreSigmaNegativo]
+Parameter
+1011  0.0000  -1.0
+1013  0.0000  -1.0
+1014  0.0000  -1.0
+1015  0.0000  -1.0
+
+2012  0.0000  -1.0
+2013  0.0000  -1.0
+2014  0.0000  -1.0
+2015  0.0000  -1.0
+
+! 3. Metodo di risoluzione e opzioni (Metodo inversione completa della matrice)
+method inversion 3 0.001
+
+! 4. Regolarizzazione (Iniezione di diagonale per sopprimere i modi deboli)
+regularization 1.0 0.01
+
+! 5. Vincoli di Lagrange
+! -------------------------------------------------------------------------------
+
+! Vincolo sugli Shift X degli strati liberi
+Constraint  0.0
+3011    1.0
+5011    1.0
+7011    1.0
+
+! Vincolo sugli Shift Y degli strati liberi
+Constraint  0.0
+4012    1.0
+6012    1.0
+8012    1.0
+
+! Vincolo sulle Rotazioni Z globali
+Constraint  0.0
+3013    1.0
+4013    1.0
+5013    1.0
+6013    1.0
+7013    1.0
+8013    1.0
+
+! Vincolo sui Tilt X globali
+Constraint  0.0
+3014    1.0
+4014    1.0
+5014    1.0
+6014    1.0
+7014    1.0
+8014    1.0
+
+! Vincolo sui Tilt Y globali
+Constraint  0.0
+3015    1.0
+4015    1.0
+5015    1.0
+6015    1.0
+7015    1.0
+8015    1.0
+
+end
