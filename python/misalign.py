@@ -12,20 +12,21 @@ args = parser.parse_args()
 # 1. CONFIGURATION OF ARTIFICIAL MISALIGNMENTS (Known values for testing)
 # ==============================================================================
 # Nominal Z positions of layers (in mm)
-Z_LAYERS = [10.0, 20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 80.0]
-IS_X_LAYER = [True, False, True, False, True, False, True, False]
+Z_LAYERS = [0.0, 5.0, 55.0, 60.0, 110.0, 115.0, 165.0, 170.0]
+IS_X_LAYER = [False, True, False, True, False, True, False, True]
+IS_ACTIVE = [True, False, True, True, True, True, False, True]
 
 # Define the coupled displacements to inject (in mm or radians)
 MISALIGNMENTS = {
     # Layer: [Shift_X/Y, Rot_Z, Tilt_X, Tilt_Y]
-    0: [+0.00,     0.0,     0.0,    0.0],     # Layer 1 (X)
-    1: [+0.00,     0.0,     0.0,    0.0],     # Layer 2 (Y)
-    2: [+1.00,     0.0,     0.0,    0.0],     # Layer 3 (X)
-    3: [+0.80,     0.0,     0.0,    0.0],     # Layer 4 (Y)
-    4: [-0.50,     0.0,     0.0,    0.0],     # Layer 5 (X)
-    5: [+0.45,     0.0,     0.0,    0.0],     # Layer 6 (Y)
-    6: [+0.00,     0.0,     0.0,    0.0],     # Layer 7 (X)
-    7: [+0.00,     0.0,     0.0,    0.0],     # Layer 8 (Y)
+    0: [+0.00,     0.0,     0.0,    0.0],     # Layer 0 (Y, REFERENCE - fixed)
+    1: [+0.00,     0.0,     0.0,    0.0],     # Layer 1 (X, inactive)
+    2: [+0.23,     0.0,     0.0,    0.0],     # Layer 2 (Y, free)
+    3: [+0.00,     0.0,     0.0,    0.0],     # Layer 3 (X, REFERENCE - fixed)
+    4: [-0.40,     0.0,     0.0,    0.0],     # Layer 4 (Y, free)
+    5: [+0.88,     0.0,     0.0,    0.0],     # Layer 5 (X, free)
+    6: [+0.00,     0.0,     0.0,    0.0],     # Layer 6 (Y, inactive)
+    7: [+0.14,     0.0,     0.0,    0.0],     # Layer 7 (X, free)
 }
 
 # ==============================================================================

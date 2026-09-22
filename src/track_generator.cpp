@@ -17,9 +17,13 @@ constexpr float BEAM_DIVERGENCE = 0.01f;    // rad, angular spread (~10 mrad)
 constexpr float BEAM_CENTER_X = 0.0f;       // cm
 constexpr float BEAM_CENTER_Y = 0.0f;       // cm
 constexpr float DETECTOR_WIDTH = 20.0f;     // cm, full width (+-10 cm)
-constexpr float LAYER_SPACING = 10.0f;      // cm, nominal z spacing
 constexpr float MEASUREMENT_NOISE = 0.006f; // cm, 30 um spatial resolution
 constexpr int MIN_HITS = 4;
+
+// Custom Z positions (in cm)
+const std::vector<float> Z_LAYERS_CUSTOM = {0.0f, 5.0f, 55.0f, 60.0f, 110.0f, 115.0f, 165.0f, 170.0f};
+const std::vector<bool> IS_X_LAYER_CUSTOM = {false, true, false, true, false, true, false, true};
+const std::vector<bool> IS_ACTIVE = {true, false, true, true, true, true, false, true};
 
 // ---------------------------------------------------------------------
 // Minimal 3D vector / rotation matrix helpers
@@ -246,8 +250,8 @@ static std::array<Detector, N_DETECTORS> build_detectors(const std::vector<Align
     for (int i = 0; i < N_DETECTORS; i++)
     {
         Detector d;
-        d.nominal_position = Vec3{0.0f, 0.0f, i * LAYER_SPACING};
-        d.readout_axis = (i % 2 == 0) ? ReadoutAxis::X : ReadoutAxis::Y;
+        d.nominal_position = Vec3{0.0f, 0.0f, Z_LAYERS_CUSTOM[i]};
+        d.readout_axis = IS_X_LAYER_CUSTOM[i] ? ReadoutAxis::X : ReadoutAxis::Y;
         d.width = DETECTOR_WIDTH;
         dets[i] = d; // 6 DOF default to zero (ideal); applied below, finalized after
     }

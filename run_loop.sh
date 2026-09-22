@@ -13,6 +13,14 @@ MAX_ITERATION=10
 
 echo "=== STARTING ALIGNMENT LOOP ==="
 
+# Check if the first argument is provided
+if [ -z "$1" ]; then
+  echo "No argument provided. Using default file "hits_misaligned.csv""
+  FILE="hits_misaligned.csv"
+else
+  FILE=$1
+fi
+
 while [ ! -f .converged ]
 do
     echo ""
@@ -22,11 +30,11 @@ do
 
     # 1. Run the local fit and generate the updated binary file
     echo "Running ./align..."
-    ./align $ITERATION
+    ./align $ITERATION $FILE
     
     # 2. Start Millepede II to calculate global corrections
     echo "Running pede..."
-    ./target/pede steer.txt > /dev/null
+    ./target/pede steer.txt >> /dev/null
     
     if [ ! -f millepede.res ]; then
         echo "Error: millepede.res not generated. Exiting loop."

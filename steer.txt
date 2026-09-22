@@ -1,69 +1,57 @@
-! Master steering file definitivo per Tracker a 8 strati alternati
+! Master steering file for 8-layer tracker with layers 1 and 6 inactive
 ! --------------------------------------------------------------------------
 
-! 1. File binari da processare
+! 1. Binary files to process
 Cfiles
 mille_output_run001.bin
 
-! 2. Ancoraggio Rigido Strato 1 e 2 (Pre-sigma negativo fissa il parametro)
-! Sintassi: Parameter [ID] [ValoreIniziale] [PreSigmaNegativo]
+! 2. Fix layer 0 (Y reference) and layer 3 (X reference)
+! Negative pre-sigma fixes the parameter
 Parameter
-1011  0.0000  -1.0
+1012  0.0000  -1.0
 1013  0.0000  -1.0
 1014  0.0000  -1.0
 1015  0.0000  -1.0
 
-2012  0.0000  -1.0
-2013  0.0000  -1.0
-2014  0.0000  -1.0
-2015  0.0000  -1.0
+4011  0.0000  -1.0
+4013  0.0000  -1.0
+4014  0.0000  -1.0
+4015  0.0000  -1.0
 
-! 3. Metodo di risoluzione e opzioni (Metodo inversione completa della matrice)
+! 3. Resolution method and options
 method inversion 3 0.001
+hugecut 60.0
+outlierdownweighting 6
+dwfractioncut 0.2
 
-! 4. Regolarizzazione (Iniezione di diagonale per sopprimere i modi deboli)
-regularization 1.0 0.01
+! 4. Regularization
+regularization 1000.0 0.01
 
-! 5. Vincoli di Lagrange
+! 5. Lagrange Constraints
 ! -------------------------------------------------------------------------------
+! Layer 0 (Y) and Layer 3 (X) are fixed references
+! With fixed references, no translation degeneracy exists
+! Keep constraints only on rotation modes to prevent weak modes
 
-! Vincolo sugli Shift X degli strati liberi
-Constraint  0.0
-3011    1.0
-5011    1.0
-7011    1.0
-
-! Vincolo sugli Shift Y degli strati liberi
-Constraint  0.0
-4012    1.0
-6012    1.0
-8012    1.0
-
-! Vincolo sulle Rotazioni Z globali
+! Constraint on global Z rotations (free: 2, 4, 5, 7)
 Constraint  0.0
 3013    1.0
-4013    1.0
 5013    1.0
 6013    1.0
-7013    1.0
 8013    1.0
 
-! Vincolo sui Tilt X globali
+! Constraint on global X tilts (free: 2, 4, 5, 7)
 Constraint  0.0
 3014    1.0
-4014    1.0
 5014    1.0
 6014    1.0
-7014    1.0
 8014    1.0
 
-! Vincolo sui Tilt Y globali
+! Constraint on global Y tilts (free: 2, 4, 5, 7)
 Constraint  0.0
 3015    1.0
-4015    1.0
 5015    1.0
 6015    1.0
-7015    1.0
 8015    1.0
 
 end

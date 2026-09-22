@@ -1,39 +1,35 @@
-! Constrains for Tracker with 8 layers and X/Y rotations included
+! Constraints for 8-layer tracker with layers 1 and 6 inactive
+! Layer 0 (Y) and Layer 3 (X) are fixed references
+! Free layers: 2 (Y), 4 (Y), 5 (X), 7 (X)
 ! -------------------------------------------------------------------------------
 
-! [Constraints for X/Y shifts and Z rotations remain invariant for the first two layers]
+! Constraint on Y shifts of free layers (2, 4)
 Constraint  0.0
-3011    1.0
-5011    1.0
-7011    1.0
+3012    1.0
+5012    1.0
 
+! Constraint on X shifts of free layers (5, 7)
 Constraint  0.0
-4012    1.0
-6012    1.0
-8012    1.0
+6011    1.0
+8011    1.0
 
+! Constraint on global Z rotations (free layers: 2, 4, 5, 7)
 Constraint  0.0
 3013    1.0
-4013    1.0
 5013    1.0
 6013    1.0
-7013    1.0
 8013    1.0
 
-! This constraint prevents the average tilt around the X axis
+! Constraint on global X tilts (free layers: 2, 4, 5, 7)
 Constraint  0.0
 3014    1.0
-4014    1.0
 5014    1.0
 6014    1.0
-7014    1.0
 8014    1.0
 
-! This constraint prevents the average tilt around the Y axis
+! Constraint on global Y tilts (free layers: 2, 4, 5, 7)
 Constraint  0.0
 3015    1.0
-4015    1.0
 5015    1.0
 6015    1.0
-7015    1.0
 8015    1.0

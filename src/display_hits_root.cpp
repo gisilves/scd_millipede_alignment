@@ -16,7 +16,7 @@
 #include "TStyle.h"
 
 constexpr int N_DETECTORS = 8;
-constexpr float DETECTOR_WIDTH = 20.0f;
+constexpr float DETECTOR_WIDTH = 200.0f;
 
 struct HitData {
     float x, y, z;
@@ -95,20 +95,20 @@ void createHistograms(const std::vector<HitData>& hits,
     
     // 3D histogram: x vs y vs z (detector position space)
     TH3F* h3_xyz = new TH3F("h3_xyz", 
-                            "Hit Distribution (XYZ);X (cm);Y (cm);Z (cm)",
-                            100, -10, 10, 100, -10, 10, 8, -5, 75);
+                            "Hit Distribution (XYZ);X (mm);Y (mm);Z (mm)",
+                            100, -20, 20, 100, -20, 20, 8, -5, 75);
     h3_xyz->Sumw2();
     
     // 2D histogram: x vs z
     TH2F* h2_xz = new TH2F("h2_xz",
-                           "Hit Distribution (XZ);X (cm);Z (cm)",
-                           50, -10, 10, 8, -5, 75);
+                           "Hit Distribution (XZ);X (mm);Z (mm)",
+                           50, -20, 20, 8, -5, 75);
     h2_xz->Sumw2();
     
     // 2D histogram: y vs z
     TH2F* h2_yz = new TH2F("h2_yz",
-                           "Hit Distribution (YZ);Y (cm);Z (cm)",
-                           50, -10, 10, 8, -5, 75);
+                           "Hit Distribution (YZ);Y (mm);Z (mm)",
+                           50, -20, 20, 8, -5, 75);
     h2_yz->Sumw2();
     
     // Per-detector histograms
@@ -117,9 +117,9 @@ void createHistograms(const std::vector<HitData>& hits,
         std::string name = std::string("h1_det_") + std::to_string(det);
         std::string title = std::string("Detector ") + std::to_string(det) + 
                            (det % 2 == 0 ? " (X-layer)" : " (Y-layer)");
-        h1_det[det] = new TH1F(name.c_str(), title.c_str(), 100, -10, 10);
+        h1_det[det] = new TH1F(name.c_str(), title.c_str(), 100, -20, 20);
         h1_det[det]->Sumw2();
-        h1_det[det]->SetXTitle("Position (cm)");
+        h1_det[det]->SetXTitle("Position (mm)");
         h1_det[det]->SetYTitle("Count");
     }
     
